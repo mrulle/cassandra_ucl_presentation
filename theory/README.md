@@ -25,18 +25,18 @@ CREATE TABLE users (
 ##  Pros and Cons of Using Cassandra
 Pros
 
-    Scalability: Cassandra is designed for high availability and scalability. It can handle large amounts of data and a high number of concurrent users databasetown.com.
+Scalability: Cassandra is designed for high availability and scalability. It can handle large amounts of data and a high number of concurrent users databasetown.com.
 
-    Efficient Data Retrieval: The column-family format allows for efficient data retrieval and compression, as data for each attribute is stored together in the same column databasetown.com.
+Efficient Data Retrieval: The column-family format allows for efficient data retrieval and compression, as data for each attribute is stored together in the same column databasetown.com.
 
-    Wide-Range of Use Cases: Cassandra is well-suited for certain types of use cases, such as data warehousing, OLAP (Online Analytical Processing), real-time analytics, cloud-based analytics, and IoT databasetown.com.
+Wide-Range of Use Cases: Cassandra is well-suited for certain types of use cases, such as data warehousing, OLAP (Online Analytical Processing), real-time analytics, cloud-based analytics, and IoT databasetown.com.
 
 Cons
 
-    Complex Querying: Unlike relational databases, Cassandra does not support complex querying, such as joins, subqueries, or transactions trustradius.com.
+Complex Querying: Unlike relational databases, Cassandra does not support complex querying, such as joins, subqueries, or transactions trustradius.com.
 
-    Limited Consistency: Cassandra prioritizes availability and partition tolerance over consistency, which can lead to stale or inconsistent data in some scenarios trustradius.com.
+Limited Consistency: Cassandra prioritizes availability and partition tolerance over consistency, which can lead to stale or inconsistent data in some scenarios trustradius.com.
 
-    Learning Curve: There can be a steep learning curve when transitioning from a relational database to Cassandra, due to differences in the data model and query language trustradius.com.
+Learning Curve: There can be a steep learning curve when transitioning from a relational database to Cassandra, due to differences in the data model and query language trustradius.com.
 
 In conclusion, while Cassandra and wide-column databases offer many advantages in terms of scalability and efficient data retrieval, they also have certain limitations that should be considered before deciding to use them in a project.
