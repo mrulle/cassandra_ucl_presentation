@@ -24,7 +24,7 @@ CREATE TABLE users (
 ```
 
 ##  Pros and Cons of Using Cassandra
-Pros
+#### Pros
 
 Scalability: Cassandra is designed for high availability and scalability. It can handle large amounts of data and a high number of concurrent users databasetown.com.
 
@@ -32,7 +32,7 @@ Efficient Data Retrieval: The column-family format allows for efficient data ret
 
 Wide-Range of Use Cases: Cassandra is well-suited for certain types of use cases, such as data warehousing, OLAP (Online Analytical Processing), real-time analytics, cloud-based analytics, and IoT databasetown.com.
 
-Cons
+#### Cons
 
 Complex Querying: Unlike relational databases, Cassandra does not support complex querying, such as joins, subqueries, or transactions trustradius.com.
 
