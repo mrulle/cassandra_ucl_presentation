@@ -1,8 +1,38 @@
 version: "3.9"
 services:
-  cassandra:
+  cassandra_1:
     image: cassandra:5.0
     # volumes:
     #   - ./data/main_node:/var/lib/cassandra
     ports:
       - 7000:7000
+      - 9042:9042
+  
+  cassandra_2:
+    image: cassandra:5.0
+    # volumes:
+    #   - ./data/main_node:/var/lib/cassandra
+    ports:
+      - 7001:7000
+      - 9043:9042
+  
+  cassandra_3:
+    image: cassandra:5.0
+    # volumes:
+    #   - ./data/main_node:/var/lib/cassandra
+    ports:
+      - 7002:7000
+      - 9044:9042
+
+  flask:
+    image: python:3.9.18-bullseye
+    ports:
+      - 8080:80
+    volumes:
+      - ./python:/app
+    build:
+      context: ./python
+      dockerfile: Dockerfile
+
+    command: ["pip","install", "-r", "requirements.txt"]
+    entrypoint: ["python3", "/app/test.py"]
