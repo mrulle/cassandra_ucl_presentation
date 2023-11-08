@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  cassandra:
+    image: cassandra:5.0
+    # volumes:
+    #   - ./data/main_node:/var/lib/cassandra
+    ports:
+      - 7000:7000
