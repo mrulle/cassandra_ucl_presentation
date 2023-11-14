@@ -18,23 +18,17 @@ session = cluster.connect()
 version = session.execute("SELECT release_version FROM system.local").one()
 print(f'connected to cassandra {version} :-)')
 
-create_stmt = """
-CREATE COLUMN FAMILY Posts
-  WITH comparator = UTF8Type
-  AND key_validation_class=UTF8Type
-  AND default_validation_class = UTF8Type
-  AND column_metadata = [
-    {column_name: author, validation_class: UTF8Type},
-    {column_name: title, validation_class: UTF8Type},
-    {column_name: content, validation_class: UTF8Type},
-    {column_name: date, validation_class: DateType}
-  ];
-  """
+stmts = [
+    "CREATE KEYSPACE IF NOT EXISTS store WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : '1' };",
+    "CREATE TABLE IF NOT EXISTS store.shopping_cart (userid text PRIMARY KEY,item_count int,last_update_timestamp timestamp);",
+    "CREATE TABLE IF NOT EXISTS store.shopping_cart (userid text PRIMARY KEY,item_count int,last_update_timestamp timestamp);",
+    "INSERT INTO store.shopping_cart(userid, item_count, last_update_timestamp)VALUES ('9876', 2, toTimeStamp(now()));",
+    "INSERT INTO store.shopping_cart(userid, item_count, last_update_timestamp)VALUES ('1234', 5, toTimeStamp(now()));"
+]
 
-response = session.execute(create_stmt)
-print(response)
+for stmt in stmts:
+  response = session.execute(stmt)
+  print(response)
 
 
-yay = input('say nam nam')
-
-print(f'did you say {yay}')
+print(f'db seeded')
