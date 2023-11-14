@@ -1,8 +1,18 @@
+import os, time
 from cassandra.cluster import Cluster
-import time
+from cassandra.auth import PlainTextAuthProvider
 
 
-cluster = Cluster(['cassandra_1', 'cassandra_2', 'cassandra_3'])
+cassandra_username = os.getenv('CASSANDRA_USER', 'cassandra')
+cassandra_password = os.getenv('CASSANDRA_PASSWORD', 'cassandra')
+
+auth_provider = PlainTextAuthProvider(
+    username=cassandra_username, password=cassandra_password)
+
+# skide protocol_version skulle være v. 4
+# se https://stackoverflow.com/questions/40611082/cassandra-unable-to-connect-to-any-servers-via-django-while-cqlsh-works
+
+cluster = Cluster(['cassandra_1', 'cassandra_2', 'cassandra_3'], auth_provider=auth_provider, protocol_version=4)
 session = cluster.connect()
 
 version = session.execute("SELECT release_version FROM system.local").one()

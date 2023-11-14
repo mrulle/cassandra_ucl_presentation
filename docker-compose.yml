@@ -1,38 +1,72 @@
 version: "3.9"
 services:
   cassandra_1:
-    image: cassandra:5.0
-    # volumes:
-    #   - ./data/main_node:/var/lib/cassandra
+    image: ${cassandra_image_name}
+    volumes:
+      - ./data/node_1:/bitnami
+    networks:
+      - cassandra_internal
     ports:
       - 7000:7000
       - 9042:9042
+    environment:
+      - CASSANDRA_TRANSPORT_PORT_NUMBER=7000
+      - CASSANDRA_CLUSTER_NAME=monkeys
+      - CASSANDRA_SEEDS=cassandra_1,cassandra_2,cassandra_3
+      - CASSANDRA_PASSWORD_SEEDER=yes
+      - CASSANDRA_USER=${cassandra_user}
+      - CASSANDRA_PASSWORD=${cassandra_password}
   
   cassandra_2:
-    image: cassandra:5.0
-    # volumes:
-    #   - ./data/main_node:/var/lib/cassandra
+    image: ${cassandra_image_name}
+    volumes:
+      - ./data/node_2:/bitnami
+    networks:
+      - cassandra_internal
     ports:
       - 7001:7000
       - 9043:9042
+    environment:
+      - CASSANDRA_TRANSPORT_PORT_NUMBER=7000
+      - CASSANDRA_CLUSTER_NAME=monkeys
+      - CASSANDRA_SEEDS=cassandra_1,cassandra_2,cassandra_3
+      - CASSANDRA_USER=${cassandra_user}
+      - CASSANDRA_PASSWORD=${cassandra_password}
   
   cassandra_3:
-    image: cassandra:5.0
-    # volumes:
-    #   - ./data/main_node:/var/lib/cassandra
+    image: ${cassandra_image_name}
+    volumes:
+      - ./data/node_3:/bitnami
+    networks:
+      - cassandra_internal
     ports:
       - 7002:7000
       - 9044:9042
+    environment:
+      - CASSANDRA_TRANSPORT_PORT_NUMBER=7000
+      - CASSANDRA_CLUSTER_NAME=monkeys
+      - CASSANDRA_SEEDS=cassandra_1,cassandra_2,cassandra_3
+      - CASSANDRA_USER=${cassandra_user}
+      - CASSANDRA_PASSWORD=${cassandra_password}
 
   flask:
     image: python:3.9.18-bullseye
+    networks:
+      - cassandra_internal
     ports:
       - 8080:80
+    environment:
+      - CASSANDRA_USER=${cassandra_user}
+      - CASSANDRA_PASSWORD=${cassandra_password}
     volumes:
       - ./python:/app
     build:
       context: ./python
       dockerfile: Dockerfile
 
-    command: ["pip","install", "-r", "requirements.txt"]
-    entrypoint: ["python3", "/app/test.py"]
+    command: [ "pip", "install", "-r", "requirements.txt" ]
+    entrypoint: [ "python3", "/app/test.py" ]
+
+networks:
+  cassandra_internal:
+    driver: bridge
