@@ -28,11 +28,11 @@ stmts = [
 
 for stmt in stmts:
   response = session.execute(stmt)
-  print(response)
-
+  print(f'response: length={len(response.all())}, values: {response.all()}')
+  
 select_stmt = "select item_count,last_update_timestamp from store.shopping_cart where userid = '1234'"
 response = session.execute(select_stmt)
-print(f'response: {response[0]}')
+print(f'response: {response.all()}')
 
 
 print(f'db seeded')
